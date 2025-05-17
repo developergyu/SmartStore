@@ -1,20 +1,35 @@
-name: Run and Upload
+name: Run domeggook script every 6 hours
 
-on: [push, workflow_dispatch]
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # 매일 6시간마다 실행 (UTC 기준)
+  workflow_dispatch:
 
 jobs:
   run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Run Python script
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
         run: |
-          python3 myscript.py > output.txt
+          pip install bcrypt pybase64 requests Pillow
 
-      - name: Upload output
+      - name: Run script
+        run: |
+          python domeggook_to_smartsstore.py
+
+      - name: Upload output files
         uses: actions/upload-artifact@v4
         with:
-          name: script-output
-          path: output.txt
+          name: product-files
+          path: |
+            product.txt
+            product_result.txt
