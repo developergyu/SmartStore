@@ -1,0 +1,20 @@
+name: Run and Upload
+
+on: [push, workflow_dispatch]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Python script
+        run: |
+          python3 myscript.py > output.txt
+
+      - name: Upload output
+        uses: actions/upload-artifact@v4
+        with:
+          name: script-output
+          path: output.txt
