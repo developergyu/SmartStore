@@ -1628,7 +1628,7 @@ def main():
                     #조건이 맞는 상품인 경우만 + 해외배송 아닐때
                     if product and  "+" not in product.price and "false" in product.fromOversea:
                         for item in categories_no:
-                            item_parts = item.get("wholeCategoryName").split(">")
+                            item_parts = item.get("wholeCategoryName", "").split(">")
                             product_parts = product.categories.split(">")
                             if item_parts[-2:] == product_parts[-2:]:
                                 product.smartstore_CategoryId = item.get("id")
