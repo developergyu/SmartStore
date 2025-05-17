@@ -45,12 +45,15 @@ client_secret = "$2a$04$Oi1tLN44O4mhRHUoaJzrVO"
 import os
 
 def check_and_append_product_no(domeggook_product_no):
-    file_path = r"C:\\SmartStore_image\\product.txt"
-
+    base_dir = os.path.join(os.path.dirname(__file__), "SmartStore_image")
+    os.makedirs(base_dir, exist_ok=True)
+    
+    file_path = os.path.join(base_dir, "product.txt")
+    
     # 파일이 없으면 생성
     if not os.path.exists(file_path):
-        open(file_path, 'a').close()
-
+        open(file_path, 'a', encoding='utf-8').close()
+    
     # 이미 등록된 상품인지 확인
     with open(file_path, 'r', encoding='utf-8') as f:
         registered_nos = {line.strip() for line in f}
@@ -1560,19 +1563,18 @@ def get_upload_imageurl(token):
 
 def write_productlist(no,origin_no,smartstore_no):
     # 디렉토리와 파일 경로
-    directory = r"C:\\SmartStore_image"
-    filepath = os.path.join(directory, "product.txt")
-
-    # 디렉토리 없으면 생성
-    os.makedirs(directory, exist_ok=True)
-
+    base_dir = os.path.join(os.path.dirname(__file__), "SmartStore_image")
+    os.makedirs(base_dir, exist_ok=True)
+    
+    # product.txt 경로 설정
+    filepath = os.path.join(base_dir, "product.txt")
+    
     # 파일에 append로 값 저장
     with open(filepath, "a", encoding="utf-8") as f:
         f.write(no + "\n")
 
     # 파일 경로
-    file_path = r"C:\\SmartStore_image\\product_result.txt"
-
+    file_path = os.path.join(os.path.dirname(__file__), "product.txt")
     # 파일에 기록
     with open(file_path, 'a', encoding='utf-8') as f:
         f.write(f"domeggokNo: {no}, originProductNo: {origin_no}, smartstoreChannelProductNo: {smartstore_no}\n")    
