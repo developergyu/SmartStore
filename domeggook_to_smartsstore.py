@@ -1505,26 +1505,30 @@ def registry_product(token, product: Product, no):
 def download_thumb_image(product: Product):
     # original 이미지 URL
     url = product.domeggook_thumb_url
-    # 저장 경로
-    save_path = "C:\\SmartStore_image"
-
+    
+    # 현재 파일 기준 상대 경로로 저장 폴더 설정
+    base_dir = os.path.join(os.path.dirname(__file__), "SmartStore_image")
+    
     # 경로가 없다면 생성
-    if not os.path.exists(save_path):
-        os.makedirs(save_path)
+    os.makedirs(base_dir, exist_ok=True)
+    
     # 다운로드
     response = requests.get(url)
     if response.status_code == 200:
-        # 파일을 경로에 저장
-        with open(os.path.join(save_path, "original_image.jpg"), "wb") as f:
+        file_path = os.path.join(base_dir, "original_image.jpg")
+        with open(file_path, "wb") as f:
             f.write(response.content)
-        print(f"이미지가 {os.path.join(save_path, 'original_image.jpg')}로 저장되었습니다.")
+        print(f"이미지가 {file_path}로 저장되었습니다.")
     else:
         print("이미지 다운로드 실패:", response.status_code)
 
 def get_upload_imageurl(token):
     url = "https://api.commerce.naver.com/external/v1/product-images/upload"
-    jpg_path = "C:\\SmartStore_image\\original_image.jpg"
-    png_path = "C:\\SmartStore_image\\original_image_converted.png"  # 변환 파일 경로
+    # base_dir는 현재 파일 기준 SmartStore_image 폴더
+    base_dir = os.path.join(os.path.dirname(__file__), "SmartStore_image")
+    
+    jpg_path = os.path.join(base_dir, "original_image.jpg")
+    png_path = os.path.join(base_dir, "original_image_converted.png")  # 변환 파일 경로
 
     def upload(file_path, mime_type):
         with open(file_path, 'rb') as f:
