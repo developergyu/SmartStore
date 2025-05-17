@@ -1627,8 +1627,8 @@ def main():
                     product = domeggook_search_product(no,title)
                     #조건이 맞는 상품인 경우만 + 해외배송 아닐때
                     if product and  "+" not in product.price and "false" in product.fromOversea:
+                        print(categories_no)
                         for item in categories_no:
-                            print(item)
                             item_parts = item.get("wholeCategoryName").split(">")
                             product_parts = product.categories.split(">")
                             if item_parts[-2:] == product_parts[-2:]:
