@@ -389,7 +389,7 @@ def registry_product(token, product: Product, no):
             "naverShoppingSearchInfo": {
                 "modelName": f'{product.title}',
                 "manufacturerName": f'{product.manufacturerName}',
-                "brandName": "히카소 마트 협력사"
+                "brandName": "협력사"
             },
             "afterServiceInfo": {                         #A/S 정보(필수)
                 "afterServiceTelephoneNumber": "010-7248-1242",  #A/S 전화번호(필수)
@@ -516,7 +516,7 @@ def registry_product(token, product: Product, no):
                 "modelName": f'{product.title}',
                 "manufacturerName": f'{product.manufacturerName}',
                 # "brandId": 0,
-                "brandName": "히카소 마트 협력사"
+                "brandName": "협력사"
             },
             # "manufactureDefineNo": "string",
             "afterServiceInfo": {                         #A/S 정보(필수)
