@@ -36,8 +36,10 @@ class Product:
 # 필요한 필드 추가
 
 # 설정 값 (clientId, clientSecret 등)
-client_id = "5XJumV8jd3c2dbG9oF98X1"
-client_secret = "$2a$04$Oi1tLN44O4mhRHUoaJzrVO"
+client_id = os.environ.get("client_id")
+client_secret = os.environ.get("client_secret")
+aid = os.environ.get("aid")
+
 # domeggook_product_no = "42548729"
 # smartstore_title = "족저근막염 양말 TXG Plantar Socks 흰색"
 # smartstore_CategoryId = None
@@ -72,7 +74,7 @@ def domeggook_search_product(no,title) -> Product:
     params = {
         'ver': '4.5',
         'mode': 'getItemView',
-        'aid': '5770d1b96006f2b3c91631b6e8d4cadc',
+        'aid': f'{aid}',
         'om': 'xml',
         'no': f'{no}'  # 조회할 상품 번호
     }
